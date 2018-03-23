@@ -1,0 +1,12 @@
+# Example from Section 9.3 of the RELAX NG tutorial.
+# 
+# http://www.relaxng.org/tutorial-20011203.html
+
+include "tut09-05inline.rnc"
+start =
+  element doc {
+    element p { inline }*
+  }
+inline.extra |=
+  element code { inline }
+  | element em { inline }

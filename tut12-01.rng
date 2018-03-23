@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+  Example from section 12 of the RELAX NG tutorial.
+
+  http://relaxng.org/tutorial-20011203.html
+-->
+<element name="addressBook" xmlns="http://relaxng.org/ns/structure/1.0" xmlns:a="http://www.example.com/annotation">
+  <zeroOrMore>
+    <element name="card">
+      <a:documentation>Information about a single email address.</a:documentation>
+      <element name="name">
+        <text/>
+      </element>
+      <element name="email">
+        <text/>
+      </element>
+    </element>
+  </zeroOrMore>
+</element>

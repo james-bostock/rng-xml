@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+  Example from Section 4 of the RELAX NG Tutorial.
+
+  http://relaxng.org/tutorial-20011203.html
+-->
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+
+  <start>
+    <element name="addressBook">
+      <zeroOrMore>
+	<element name="card">
+	  <ref name="cardContent"/>
+	</element>
+      </zeroOrMore>
+    </element>
+  </start>
+
+  <define name="cardContent">
+    <element name="name">
+      <text/>
+    </element>
+    <element name="email">
+      <text/>
+    </element>
+  </define>
+
+</grammar>

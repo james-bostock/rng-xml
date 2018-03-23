@@ -1,0 +1,12 @@
+# Example from section 2 of the RELAX NG Tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+element addressBook {
+  element card {
+    (element name { text }
+     | (element givenName { text },
+        element familyName { text })),
+    element email { text },
+    element note { text }?
+  }*
+}

@@ -1,0 +1,12 @@
+namespace a = "http://www.example.com/address"
+namespace ab = "http://www.example.com/addressBook"
+
+# Example from Section 10.2 of the RELAX NG tutorial.
+# 
+# http://www.relaxng.org/tutorial-20011203.html
+element ab:addressBook {
+  element ab:card {
+    element a:name { text },
+    element a:email { text }
+  }*
+}

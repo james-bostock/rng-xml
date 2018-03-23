@@ -1,0 +1,7 @@
+# Example from Section 11 of the RELAX NG tutorial.
+# 
+# http://www.relaxng.org/tutorial-20011203.html
+element example {
+  attribute * - xml:space { text }*,
+  attribute xml:space { "default" | "preserve" }?
+}

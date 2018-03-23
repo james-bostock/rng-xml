@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+  Example from Section 5 of the RELAX NG Tutorial.
+
+  http://relaxng.org/tutorial-20011203.html
+-->
+<element name="point"
+	 datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+	 xmlns="http://relaxng.org/ns/structure/1.0">
+  <element name="x">
+    <data type="double"/>
+  </element>
+  <element name="y">
+    <data type="double"/>
+  </element>
+</element>

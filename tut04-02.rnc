@@ -1,0 +1,9 @@
+# Example from Section 4 of the RELAX NG Tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+
+start = AddressBook
+AddressBook = element addressBook { Card* }
+Card = element card { Name, Email }
+Name = element name { text }
+Email = element email { text }

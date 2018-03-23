@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+  Example from Section 10.1 of the RELAX NG tutorial.
+
+  http://www.relaxng.org/tutorial-20011203.html
+-->
+<element xmlns="http://relaxng.org/ns/structure/1.0"
+	 name="foo" ns="http://www.example.com">
+  <empty/>
+</element>

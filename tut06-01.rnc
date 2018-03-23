@@ -1,0 +1,8 @@
+# Example from Section 6 of the RELAX NG Tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+element card {
+  attribute name { text },
+  attribute email { text },
+  attribute preferredFormat { "html" | "text" }
+}

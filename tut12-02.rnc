@@ -1,0 +1,19 @@
+# Example from section 12 of the RELAX NG tutorial, modified so that
+# it is valid.
+# 
+# http://relaxng.org/tutorial-20011203.html
+
+namespace m = "http://www.example.com/module"
+
+[ m:name = "inline" ]
+div {
+  code = element code { text }
+  em = element em { text }
+  var = element var { text }
+}
+[ m:name = "block" ]
+div {
+  p = element p { text }
+  ul = element ul { text }
+  ol = element ol { text }
+}

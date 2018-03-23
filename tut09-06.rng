@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+  Example from Section 9.4 of the RELAX NG tutorial.
+
+  http://www.relaxng.org/tutorial-20011203.html
+-->
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+
+  <include href="tut09-06include.rng">
+
+    <define name="cardContent">
+      <element name="name">
+	<text/>
+      </element>
+      <element name="emailAddress">
+	<text/>
+      </element>
+    </define>
+
+  </include>
+
+</grammar>

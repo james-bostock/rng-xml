@@ -1,0 +1,10 @@
+# Example from Section 3 of the RELAX NG Tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+element addressBook {
+  element card {
+    element name { text },
+    element email { text },
+    element prefersHTML { empty }?
+  }*
+}

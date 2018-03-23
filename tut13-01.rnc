@@ -1,0 +1,16 @@
+# Example from section 13 of the RELAX NG tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+
+start =
+  element doc {
+    (element p { inline }
+     | grammar {
+         include "tut13-01table.rnc" {
+           cell.content = parent inline
+         }
+       })*
+  }
+inline =
+  (text
+   | element em { inline })*

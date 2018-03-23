@@ -1,0 +1,6 @@
+default namespace = ""
+
+# Example from Section 10.1 of the RELAX NG tutorial.
+# 
+# http://www.relaxng.org/tutorial-20011203.html
+element foo { empty }

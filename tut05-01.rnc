@@ -1,0 +1,7 @@
+# Example from Section 5 of the RELAX NG Tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+element point {
+  element x { xsd:double },
+  element y { xsd:double }
+}

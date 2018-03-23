@@ -1,0 +1,6 @@
+# Example from Section 7 of the RELAX NG Tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+element path {
+  list { (double, double)+ }
+}

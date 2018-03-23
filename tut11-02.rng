@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+  Example from Section 11 of the RELAX NG tutorial.
+
+  http://www.relaxng.org/tutorial-20011203.html
+-->
+<element name="card"
+         ns="http://www.example.com"
+         xmlns="http://relaxng.org/ns/structure/1.0">
+  <zeroOrMore>
+    <attribute>
+      <anyName>
+        <except>
+          <nsName/>
+          <nsName ns=""/>
+        </except>
+      </anyName>
+    </attribute>
+  </zeroOrMore>
+  <text/>
+</element>

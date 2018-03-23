@@ -1,0 +1,10 @@
+# Example from Section 9.2 of the RELAX NG Tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+
+start =
+  element addressBook {
+    element card { card.attlist }*
+  }
+card.attlist &= attribute name { text }
+card.attlist &= attribute email { text }

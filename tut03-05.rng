@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+  Example from Section 3 of the RELAX NG Tutorial.
+
+  http://relaxng.org/tutorial-20011203.html
+-->
+<element name="addressBook" xmlns="http://relaxng.org/ns/structure/1.0">
+  <zeroOrMore>
+    <element name="card">
+      <element name="name">
+        <text/>
+      </element>
+      <element name="email">
+        <text/>
+      </element>
+      <optional>
+        <element name="prefersHTML">
+          <empty/>
+        </element>
+      </optional>
+    </element>
+  </zeroOrMore>
+</element>

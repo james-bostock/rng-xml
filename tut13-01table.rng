@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+  Example from section 13 of the RELAX NG tutorial.
+
+  http://relaxng.org/tutorial-20011203.html
+-->
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="cell.content">
+    <notAllowed/>
+  </define>
+
+  <start>
+    <element name="table">
+      <oneOrMore>
+	<element name="tr">
+          <oneOrMore>
+	    <element name="td">
+	      <ref name="cell.content"/>
+	    </element>
+          </oneOrMore>
+	</element>
+      </oneOrMore>
+    </element>
+  </start>
+</grammar>

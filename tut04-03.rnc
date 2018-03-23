@@ -1,0 +1,13 @@
+# Example from Section 4 of the RELAX NG Tutorial (modified to add a
+# surrounding grammar element).
+# 
+# http://relaxng.org/tutorial-20011203.html
+
+inline =
+  (text
+   | element bold { inline }
+   | element italic { inline }
+   | element span {
+       attribute style { text }?,
+       inline
+     })*

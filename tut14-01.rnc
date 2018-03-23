@@ -1,0 +1,32 @@
+# Example from section 14 of the RELAX NG tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+element html {
+  element head {
+    element title { text }
+  },
+  element body {
+    element table {
+      attribute class { "addressBook" },
+      element tr {
+        attribute class { "card" },
+        element td {
+          attribute class { "name" },
+          (text
+           & element span {
+               attribute class { "givenName" },
+               text
+             }?
+           & element span {
+               attribute class { "familyName" },
+               text
+             }?)
+        },
+        element td {
+          attribute class { "email" },
+          text
+        }
+      }+
+    }
+  }
+}

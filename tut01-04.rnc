@@ -1,0 +1,11 @@
+namespace rng = "http://relaxng.org/ns/structure/1.0"
+
+# Example from section 1 of the RELAX NG Tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+element addressBook {
+  element card {
+    element name { text },
+    element email { text }
+  }*
+}

@@ -1,0 +1,9 @@
+# Example from Section 9.4 of the RELAX NG tutorial.
+# 
+# http://www.relaxng.org/tutorial-20011203.html
+
+include "tut09-06include.rnc" {
+  cardContent =
+    element name { text },
+    element emailAddress { text }
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+  Example from Section 9.2 of the RELAX NG Tutorial.
+
+  http://relaxng.org/tutorial-20011203.html
+-->
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+
+  <start>
+    <element name="addressBook">
+      <zeroOrMore>
+	<element name="card">
+	  <ref name="card.attlist"/>
+	</element>
+      </zeroOrMore>
+    </element>
+  </start>
+
+  <define name="card.attlist" combine="interleave">
+    <attribute name="name">
+      <text/>
+    </attribute>
+  </define>
+
+  <define name="card.attlist" combine="interleave">
+    <attribute name="email">
+      <text/>
+    </attribute>
+  </define>
+
+</grammar>

@@ -1,0 +1,8 @@
+# Example derived from Section 9.2 of the RELAX NG Tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+
+start = inline
+inline = (text | inline.class)*
+inline.class |= element bold { inline }
+inline.class |= element italic { inline }

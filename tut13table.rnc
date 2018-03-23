@@ -1,0 +1,11 @@
+# Example from section 13 of the RELAX NG tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+
+cell.content = notAllowed
+start =
+  element table {
+    element tr {
+      element td { cell.content }+
+    }+
+  }

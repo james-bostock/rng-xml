@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+  Example from section 12 of the RELAX NG tutorial, modified so that
+  it is valid.
+
+  http://relaxng.org/tutorial-20011203.html
+-->
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" xmlns:m="http://www.example.com/module">
+
+  <div m:name="inline">
+
+    <define name="code"><element name="code"><text/></element></define>
+    <define name="em"><element name="em"><text/></element></define>
+    <define name="var"><element name="var"><text/></element></define>
+
+  </div>
+
+  <div m:name="block">
+
+    <define name="p"><element name="p"><text/></element></define>
+    <define name="ul"><element name="ul"><text/></element></define>
+    <define name="ol"><element name="ol"><text/></element></define>
+
+  </div>
+
+</grammar>
+

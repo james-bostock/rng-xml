@@ -1,0 +1,10 @@
+namespace local = ""
+default namespace ns1 = "http://www.example.com"
+
+# Example from Section 11 of the RELAX NG tutorial.
+# 
+# http://www.relaxng.org/tutorial-20011203.html
+element card {
+  attribute * - (ns1:* | local:*) { text }*,
+  text
+}

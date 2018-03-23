@@ -1,0 +1,12 @@
+namespace a = "http://www.example.com/annotation"
+
+# Example from section 12 of the RELAX NG tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+element addressBook {
+  [ a:documentation [ "Information about a single email address." ] ]
+  element card {
+    element name { text },
+    element email { text }
+  }*
+}

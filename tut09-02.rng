@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+  Example derived from Section 9.2 of the RELAX NG Tutorial.
+
+  http://relaxng.org/tutorial-20011203.html
+-->
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+
+  <start>
+    <ref name="inline"/>
+  </start>
+
+  <define name="inline">
+    <zeroOrMore>
+      <choice>
+        <text/>
+	<ref name="inline.class"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="inline.class" combine="choice">
+    <element name="bold">
+      <ref name="inline"/>
+    </element>
+  </define>
+
+  <define name="inline.class" combine="choice">
+    <element name="italic">
+      <ref name="inline"/>
+    </element>
+  </define>
+
+</grammar>

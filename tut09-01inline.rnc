@@ -1,0 +1,11 @@
+# Example from Section 9.1 of the RELAX NG Tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+
+start = inline
+inline =
+  (text
+   | element code { inline }
+   | element em { inline }
+     # etc
+     )*

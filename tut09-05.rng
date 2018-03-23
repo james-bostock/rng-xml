@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+  Example from Section 9.3 of the RELAX NG tutorial.
+
+  http://www.relaxng.org/tutorial-20011203.html
+-->
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+
+  <include href="tut09-05inline.rng"/>
+
+  <start>
+    <element name="doc">
+      <zeroOrMore>
+	<element name="p">
+	  <ref name="inline"/>
+	</element>
+      </zeroOrMore>
+    </element>
+  </start>
+
+  <define name="inline.extra" combine="choice">
+    <choice>
+      <element name="code">
+	<ref name="inline"/>
+      </element>
+      <element name="em">
+	<ref name="inline"/>
+      </element>
+    </choice>
+  </define>
+
+</grammar>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+  Example from Section 11 of the RELAX NG tutorial.
+
+  http://www.relaxng.org/tutorial-20011203.html
+-->
+<element name="example"
+         xmlns="http://relaxng.org/ns/structure/1.0">
+  <zeroOrMore>
+    <attribute>
+      <anyName>
+        <except>
+          <name>xml:space</name>
+        </except>
+      </anyName>
+    </attribute>
+  </zeroOrMore>
+  <optional>
+    <attribute name="xml:space">
+      <choice>
+        <value>default</value>
+        <value>preserve</value>
+      </choice>
+    </attribute>
+  </optional>
+</element>
