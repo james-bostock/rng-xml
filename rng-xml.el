@@ -35,6 +35,50 @@ attributes ATTRS."
 	(nxml-make-namespace (cdar match))
 	match)))
 
+
+(defconst rng-rng-namespace :http://relaxng.org/ns/structure/1.0
+  "The RELAX NG namespace.")
+
+(defun rng-tag-p (tag)
+  "Is TAG in the RELAX NG namespace?"
+    (and (consp tag)
+	 (eq (car tag) rng-rng-namespace)))
+
+(defun rng-attr-p (attr)
+  "Is ATTR in the RELAX NG namespace?"
+  (let ((name (car attr)))
+    (if (consp name)
+	(eq (car name) rng-rng-namespace)
+      t)))
+
+(defun rng-child-p (child)
+  "Is CHILD in the RELAX NG namespace. CHILD can be either a
+string or an element. If it is a string then it is in the RELAX
+NG namespace. If it is an element, it is in the RELAX NG
+namespace if its tag is in the RELAX NG namespace."
+  (if (consp child)
+      (rng-tag-p (car child))
+    t))
+
+(defun rng-remove-annotations (item)
+  "Remove foreign attributes and elements.
+
+If ITEM is not a cons, it is returned as is.
+
+If ITEM is a cons, it is assumed to be an element in the RELAX
+NG (i.e. it is assumed not to be a foreign element)."
+  (if (consp item)
+      (let ((tag (car item))
+	    (attrs (seq-filter 'rng-attr-p (cadr item)))
+	    (children (seq-map 'rng-remove-annotations (seq-filter 'rng-child-p (cddr item)))))
+	(cons tag (cons attrs children)))
+    item))
+
+(defun rng-x-simplify (pttrn)
+  "Simplify PTTRN according to the steps described in the RELAX
+  NG specification."
+  (rng-remove-annotations pttrn))
+
 (defun rng-x-make-name (name nslist)
   "Make a name pattern from NAME."
   (let ((s (split-string name ":")))
@@ -87,24 +131,23 @@ TODO: handle choice patterns as well as groups?"
     (let* ((elem  (car pttrn))
 	   (attrs (cadr pttrn))
 	   (nslist (rng-x-add-namespaces nslist attrs))
-	   (body  (seq-filter (lambda (x) (listp x)) (cddr pttrn))))
-      (if (eq (car elem) ':http://relaxng.org/ns/structure/1.0)
-	  (let ((elem-name (cdr elem)))
-	    (cond
-	     ((string-equal elem-name "attribute") (rng-x-attribute attrs body nslist))
-	     ((string-equal elem-name "choice") (rng-x-choice body nslist))
-	     ((string-equal elem-name "element") (rng-x-element attrs body nslist))
-	     ((string-equal elem-name "empty") (rng-x-empty))
-	     ((string-equal elem-name "grammar") (rng-x-grammar attrs body nslist))
-	     ((string-equal elem-name "group") (rng-x-group body nslist))
-	     ((string-equal elem-name "oneOrMore") (rng-x-one-or-more body nslist))
-	     ((string-equal elem-name "optional") (rng-x-optional body nslist))
-	     ((string-equal elem-name "text") (rng-x-text))
-	     ((string-equal elem-name "zeroOrMore") (rng-x-zero-or-more body nslist))
-	    )))))
+	   (body  (seq-filter (lambda (x) (listp x)) (cddr pttrn)))
+	   (elem-name (cdr elem)))
+      (cond
+       ((string-equal elem-name "attribute") (rng-x-attribute attrs body nslist))
+       ((string-equal elem-name "choice") (rng-x-choice body nslist))
+       ((string-equal elem-name "element") (rng-x-element attrs body nslist))
+       ((string-equal elem-name "empty") (rng-x-empty))
+       ((string-equal elem-name "grammar") (rng-x-grammar attrs body nslist))
+       ((string-equal elem-name "group") (rng-x-group body nslist))
+       ((string-equal elem-name "oneOrMore") (rng-x-one-or-more body nslist))
+       ((string-equal elem-name "optional") (rng-x-optional body nslist))
+       ((string-equal elem-name "text") (rng-x-text))
+       ((string-equal elem-name "zeroOrMore") (rng-x-zero-or-more body nslist))
+       )))
 
 (defun rng-x-parse-file (filename)
   (let ((parsed-file (rng-parse-validate-file (rng-load-schema (rng-locate-schema-file "RELAX NG")) filename)))
-    (rng-x-main parsed-file nil)))
+    (rng-x-main (rng-x-simplify parsed-file) nil)))
 
 (provide 'rng-xml)
