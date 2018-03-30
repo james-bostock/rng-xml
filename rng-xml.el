@@ -45,8 +45,8 @@ If ITEM is a cons, it is assumed to be an element in the RELAX
 NG (i.e. it is assumed not to be a foreign element)."
   (if (consp item)
       (let ((tag (car item))
-	    (attrs (seq-filter 'rng-x--attr-p (cadr item)))
-	    (children (seq-map 'rng-x--remove-annotations (seq-filter 'rng-x--child-p (cddr item)))))
+	    (attrs (seq-filter #'rng-x--attr-p (cadr item)))
+	    (children (seq-map #'rng-x--remove-annotations (seq-filter #'rng-x--child-p (cddr item)))))
 	(cons tag (cons attrs children)))
     item))
 
