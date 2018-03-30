@@ -11,19 +11,20 @@
 (require 'rng-pttrn)
 (require 'seq)
 
-(defconst rng-x-rng-namespace :http://relaxng.org/ns/structure/1.0
-  "The RELAX NG namespace.")
+(defconst rng-x-rng-namespace-url
+  (nxml-make-namespace "http://relaxng.org/ns/structure/1.0")
+  "The RELAX NG namespace URL.")
 
 (defun rng-x--tag-p (tag)
   "Is TAG in the RELAX NG namespace?"
     (and (consp tag)
-	 (eq (car tag) rng-x-rng-namespace)))
+	 (eq (car tag) rng-x-rng-namespace-url)))
 
 (defun rng-x--attr-p (attr)
   "Is ATTR in the RELAX NG namespace?"
   (let ((name (car attr)))
     (if (consp name)
-	(eq (car name) rng-x-rng-namespace)
+	(eq (car name) rng-x-rng-namespace-url)
       t)))
 
 (defun rng-x--child-p (child)
