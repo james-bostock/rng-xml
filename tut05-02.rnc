@@ -1,0 +1,6 @@
+# Example from Section 5 of the RELAX NG Tutorial.
+# 
+# http://relaxng.org/tutorial-20011203.html
+element email {
+  xsd:string { maxLength = "127" }
+}

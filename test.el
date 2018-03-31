@@ -65,6 +65,11 @@
   (should (equal (rng-c-parse-file "tut05-01.rnc")
 		 (rng-x-parse-file "tut05-01.rng"))))
 
+(ert-deftest rng-x-test-tut-05-02 ()
+  :expected-result :failed
+  (should (equal (rng-c-parse-file "tut05-02.rnc")
+		 (rng-x-parse-file "tut05-02.rng"))))
+
 (ert-deftest rng-x-test-tut-06-01 ()
   :expected-result :failed
   (should (equal (rng-c-parse-file "tut06-01.rnc")
