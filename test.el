@@ -177,3 +177,9 @@
   :expected-result :failed
   (should (equal (rng-c-parse-file "tut14-01.rnc")
 		 (rng-x-parse-file "tut14-01.rng"))))
+
+
+(ert-deftest rng-x-test-whitespace ()
+  :expected-result :failed
+  (should (equal (rng-c-parse-file "whitespace.rnc")
+		 (rng-x-parse-file "whitespace.rng"))))

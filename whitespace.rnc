@@ -1,0 +1,31 @@
+# Testcase for the removal of whitespace as described in Section 4.2
+# of the RELAX NG specification.
+
+start = addressBook
+# Leading and trailing whitespace in combine attribute: should be
+# removed.
+inline.class |= element bold { inline }
+addressBook =
+  element addressBook {
+    (# Leading and trailing whitespace in name attribute
+     # value. Should be removed.
+     element card {
+       attribute preferredFormat {
+         # Leading and trailing whitespace in value element:
+         # should not be removed.
+         " html "
+         | " text "
+       },
+       element name { xsd:string },
+       element email {
+         xsd:string {
+           # Leading and trailing whitespace in param element:
+           # should not be removed.
+           pattern = " [a-zA-Z._]+@[a-zA-Z._] "
+         }
+       }
+     },
+     element # Leading and trailing whitespace in name element: should
+             # be removed.
+             dateAdded { xsd:date })*
+  }

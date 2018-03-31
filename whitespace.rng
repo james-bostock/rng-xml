@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+  Testcase for the removal of whitespace as described in Section 4.2
+  of the RELAX NG specification.
+-->
+<grammar datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+	 xmlns="http://relaxng.org/ns/structure/1.0">
+  <start>
+    <ref name="addressBook"/>
+  </start>
+
+  <!-- Leading and trailing whitespace in combine attribute: should be
+       removed. -->
+  <define name="inline.class" combine=" choice ">
+    <element name="bold">
+      <ref name="inline"/>
+    </element>
+  </define>
+
+  <define name="addressBook">
+    <element name="addressBook">
+      <zeroOrMore>
+	<!-- Leading and trailing whitespace in name attribute
+	     value. Should be removed. -->
+	<element name=" card ">
+	  <attribute name="preferredFormat">
+	    <choice>
+	      <!-- Leading and trailing whitespace in value element:
+	           should not be removed. -->
+	      <value> html </value>
+	      <value> text </value>
+	    </choice>
+	  </attribute>
+	  <element name="name">
+            <data type=" string "/>
+	  </element>
+	  <element name="email">
+            <data type="string">
+	      <!-- Leading and trailing whitespace in param element:
+	           should not be removed. -->
+	      <param name="pattern"> [a-zA-Z._]+@[a-zA-Z._] </param>
+	    </data>
+	  </element>
+	</element>
+	<element>
+	  <!-- Leading and trailing whitespace in name element: should
+	       be removed. -->
+	  <name> dateAdded </name>
+	  <data type="date"/>
+	</element>
+      </zeroOrMore>
+    </element>
+  </define>
+</grammar>
