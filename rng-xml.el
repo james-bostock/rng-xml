@@ -50,10 +50,76 @@ NG (i.e. it is assumed not to be a foreign element)."
 	(cons tag (cons attrs children)))
     item))
 
+;; Surprising that Emacs lisp doesn't provide these or something
+;; similar. Maybe I didn't look in the right place(s).
+(defun rng-x--ltrim (string)
+  "Remove leading space from STRING."
+  (replace-regexp-in-string "^[[:space:]]+" "" string))
+
+(defun rng-x--rtrim (string)
+  "Remove trailing space from STRING."
+  (replace-regexp-in-string "[[:space:]]+$" "" string))
+
+(defun rng-x--trim (string)
+  "Remove leading and trailing space from STRING"
+  (rng-x--ltrim (rng-x--rtrim string)))
+
+(defun rng-x--child-whitespace-filter (child)
+  "Returns true if CHILD is a not string consisting entirely of
+whitespace."
+  (not (and (stringp child)
+	    (string-match "^[[:space:]]*$" child))))
+
+(defun rng-x--remove-attr-whitespace (attr)
+  "If ATTR is name, type or combine attribute, remove leading and
+  trailing whitespace from its value."
+  (let* ((name (car attr))
+	 (value (cdr attr))
+	 (new-value (if (or (string= name "combine")
+			    (string= name "name")
+			    (string= name "type"))
+			(rng-x--trim value)
+		      value)))
+    (cons name new-value)))
+
+
+(defun rng-x--new-children (name children)
+   (cond ((or (string= name "param")
+	     (string= name "value"))
+	 children)
+	((string= name "name")
+	 (mapcar #'rng-x--trim children))
+	(t
+	 (mapcar #'rng-x--remove-whitespace (seq-filter #'rng-x--child-whitespace-filter
+				 children)))))
+
+(defun rng-x--remove-whitespace (elem)
+  "If ELEM is not a value or a param element, remove any child
+elements that are strings containing only whitespace.
+
+Remove leading and trailing whitespace from the value of each
+name, type and combine attribute and from the content of each
+name element."
+  (let* ((tag (car elem))
+	 (name (cdr tag))
+	 (attrs (mapcar #'rng-x--remove-attr-whitespace (cadr elem)))
+	 (children (cddr elem))
+	 (new-children (cond ((or (string= name "param")
+				  (string= name "value"))
+			      children)
+			     ((string= name "name")
+			      (mapcar #'rng-x--trim children))
+			     (t
+			      (mapcar #'rng-x--remove-whitespace
+				      (seq-filter #'rng-x--child-whitespace-filter
+						  children))))))
+    (cons tag (cons attrs new-children))))
+
 (defun rng-x--simplify (pttrn)
   "Simplify PTTRN according to the steps described in the RELAX
   NG specification."
-  (rng-x--remove-annotations pttrn))
+  (rng-x--remove-whitespace
+   (rng-x--remove-annotations pttrn)))
 
 (defun rng-x--make-name (name)
   "Make a name pattern from NAME."
