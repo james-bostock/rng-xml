@@ -17,6 +17,10 @@
     </element>
   </define>
 
+  <define name="inline">
+    <text/>
+  </define>
+
   <define name="addressBook">
     <element name="addressBook">
       <zeroOrMore>

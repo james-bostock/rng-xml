@@ -5,6 +5,7 @@ start = addressBook
 # Leading and trailing whitespace in combine attribute: should be
 # removed.
 inline.class |= element bold { inline }
+inline = text
 addressBook =
   element addressBook {
     (# Leading and trailing whitespace in name attribute
