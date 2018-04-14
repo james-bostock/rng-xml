@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+  Simplification step 3: the datatypeLibrary attribute.
+
+  http://relaxng.org/spec-20011203.html#IDAXYYR
+-->
+<element name="point"
+	 datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+	 xmlns="http://relaxng.org/ns/structure/1.0">
+  <element name="x">
+    <data type="double"/>
+  </element>
+  <element name="y">
+    <data type="double"/>
+  </element>
+</element>

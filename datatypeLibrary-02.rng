@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+  Simplification step 3: the datatypeLibrary attribute.
+
+  http://relaxng.org/spec-20011203.html#IDAXYYR
+-->
+<element name="card"
+	 datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+	 xmlns="http://relaxng.org/ns/structure/1.0">
+  <attribute name="name"/>
+  <attribute name="email"/>
+  <attribute name="type">
+    <choice>
+      <value type="string">html</value>
+      <value type="string">text</value>
+    </choice>
+  </attribute>
+</element>

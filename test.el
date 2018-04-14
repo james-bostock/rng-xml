@@ -5,8 +5,9 @@
 (require 'rng-xml)
 
 (ert-deftest rng-x-test-tut-01-01 ()
+  :expected-result :passed
   (should (equal (rng-c-parse-file "tut01-01.rnc")
-		 (rng-x-parse-file "tut01-01.rng"))))
+ 		 (rng-x-parse-file "tut01-01.rng"))))
 
 (ert-deftest rng-x-test-tut-01-02 ()
   (should (equal (rng-c-parse-file "tut01-02.rnc")
@@ -178,8 +179,17 @@
   (should (equal (rng-c-parse-file "tut14-01.rnc")
 		 (rng-x-parse-file "tut14-01.rng"))))
 
-
 (ert-deftest rng-x-test-whitespace ()
   :expected-result :failed
   (should (equal (rng-c-parse-file "whitespace.rnc")
 		 (rng-x-parse-file "whitespace.rng"))))
+
+(ert-deftest rng-x-test-datatypeLibrary-01 ()
+  :expected-result :failed
+  (should (equal (rng-c-parse-file "datatypeLibrary-01.rnc")
+		 (rng-x-parse-file "datatypeLibrary-01.rng"))))
+
+(ert-deftest rng-x-test-datatypeLibrary-02 ()
+  :expected-result :failed
+  (should (equal (rng-c-parse-file "datatypeLibrary-02.rnc")
+		 (rng-x-parse-file "datatypeLibrary-02.rng"))))
