@@ -115,11 +115,44 @@ name element."
 						  children))))))
     (cons tag (cons attrs new-children))))
 
+(defun rng-x--datatype-library-attr (item dtns)
+  "Transform ITEM so that, if it is a data or value element, it
+has a datatypeLibrary attribute (with the value DTNS, if it does
+not alrady have such an attribute); and, if it is not (a data or
+value element), that it does not have a datatypeLibrary
+attribute. "
+  (if (consp item)
+      (let* ((tag (car item))
+	     (data_or_value (or (equal (cdr tag) "data")
+				(equal (cdr tag) "value")))
+	     (name (cdr tag))
+	     (attrs (cadr item))
+	     (thistdns (assoc "datatypeLibrary" attrs))
+	     (newdtns (if thistdns (cdr thistdns) dtns))
+	     (newattrs (cond ((and data_or_value (not thistdns))
+			      (append attrs
+				      (list
+				       (cons "datatypeLibrary" newdtns))))
+			     ((and (not data_or_value) thistdns)
+			      (seq-filter (lambda (x)
+					    (not
+					     (equal
+					      (car x) "datatypeLibrary")))
+					  attrs))
+			     (t attrs)))
+	     (children (mapcar
+			(lambda (arg)
+			  (rng-x--datatype-library-attr arg newdtns))
+			(cddr item))))
+	(cons tag (cons newattrs children)))
+    item))
+
 (defun rng-x--simplify (pttrn)
   "Simplify PTTRN according to the steps described in the RELAX
   NG specification."
-  (rng-x--remove-whitespace
-   (rng-x--remove-annotations pttrn)))
+  (rng-x--datatype-library-attr
+   (rng-x--remove-whitespace
+    (rng-x--remove-annotations pttrn)) ""))
 
 (defun rng-x--make-name (name)
   "Make a name pattern from NAME."
