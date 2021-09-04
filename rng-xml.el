@@ -1,6 +1,6 @@
 ;; rng-xml.el --- Parsing of RELAX NG schemas -*- lexical-binding:t -*-
 
-;; Copyright (C) 2018 James Bostock
+;; Copyright (C) 2018, 2021 James Bostock
 
 ;; Author: James Bostock
 ;; Keywords: wp, hypermedia, languages, XML, RelaxNG
