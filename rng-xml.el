@@ -118,7 +118,7 @@ name element."
 (defun rng-x--datatype-library-attr (item dtns)
   "Transform ITEM so that, if it is a data or value element, it
 has a datatypeLibrary attribute (with the value DTNS, if it does
-not alrady have such an attribute); and, if it is not (a data or
+not already have such an attribute); and, if it is not (a data or
 value element), that it does not have a datatypeLibrary
 attribute. "
   (if (consp item)
