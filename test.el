@@ -62,12 +62,10 @@
 		 (rng-x-parse-file "tut04-03.rng"))))
 
 (ert-deftest rng-x-test-tut-05-01 ()
-  :expected-result :failed
   (should (equal (rng-c-parse-file "tut05-01.rnc")
 		 (rng-x-parse-file "tut05-01.rng"))))
 
 (ert-deftest rng-x-test-tut-05-02 ()
-  :expected-result :failed
   (should (equal (rng-c-parse-file "tut05-02.rnc")
 		 (rng-x-parse-file "tut05-02.rng"))))
 
@@ -185,7 +183,6 @@
 		 (rng-x-parse-file "whitespace.rng"))))
 
 (ert-deftest rng-x-test-datatypeLibrary-01 ()
-  :expected-result :failed
   (should (equal (rng-c-parse-file "datatypeLibrary-01.rnc")
 		 (rng-x-parse-file "datatypeLibrary-01.rng"))))
 

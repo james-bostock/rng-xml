@@ -174,6 +174,13 @@ TODO: handle choice patterns as well as groups?"
 (defun rng-x--choice (body)
   (rng-make-choice (mapcar (lambda (x) (rng-x--main x)) body)))
 
+(defun rng-x--data (attrs body)
+  (rng-make-data (cons (intern (cdr (assoc "datatypeLibrary" attrs)))
+                       (intern (cdr (assoc "type" attrs))))
+                 (mapcar (lambda (param)
+                           (cons (intern (cdr (assoc "name" (cadr param))))
+                                 (caddr param))) body)))
+
 (defun rng-x--element (attrs body)
   (rng-make-element (rng-make-name-name-class (rng-x--make-name (cdr (assoc "name" attrs))))
 		    (rng-x--body body)))
@@ -207,6 +214,7 @@ TODO: handle choice patterns as well as groups?"
       (cond
        ((string-equal elem-name "attribute") (rng-x--attribute attrs body))
        ((string-equal elem-name "choice") (rng-x--choice body))
+       ((string-equal elem-name "data") (rng-x--data attrs body))
        ((string-equal elem-name "element") (rng-x--element attrs body))
        ((string-equal elem-name "empty") (rng-x--empty))
        ((string-equal elem-name "grammar") (rng-x--grammar attrs body))
