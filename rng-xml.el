@@ -125,7 +125,6 @@ attribute. "
       (let* ((tag (car item))
 	     (data_or_value (or (equal (cdr tag) "data")
 				(equal (cdr tag) "value")))
-	     (name (cdr tag))
 	     (attrs (cadr item))
 	     (thistdns (assoc "datatypeLibrary" attrs))
 	     (newdtns (if thistdns (cdr thistdns) dtns))
