@@ -208,7 +208,7 @@ TODO: handle choice patterns as well as groups?"
 (defun rng-x--main (pttrn)
     (let* ((elem  (car pttrn))
 	   (attrs (cadr pttrn))
-	   (body  (seq-filter (lambda (x) (listp x)) (cddr pttrn)))
+	   (body (cddr pttrn))
 	   (elem-name (cdr elem)))
       (cond
        ((string-equal elem-name "attribute") (rng-x--attribute attrs body))
