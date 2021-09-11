@@ -187,7 +187,6 @@
 		 (rng-x-parse-file "datatypeLibrary-01.rng"))))
 
 (ert-deftest rng-x-test-datatypeLibrary-02 ()
-  :expected-result :failed
   (should (equal (rng-c-parse-file "datatypeLibrary-02.rnc")
 		 (rng-x-parse-file "datatypeLibrary-02.rng"))))
 

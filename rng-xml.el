@@ -15,6 +15,10 @@
   (nxml-make-namespace "http://relaxng.org/ns/structure/1.0")
   "The RELAX NG namespace URL.")
 
+(defconst rng-x-xml-namespace-url
+  (nxml-make-namespace "http://www.w3.org/XML/1998/namespace")
+  "The XML namespace URL.")
+
 (defun rng-x--tag-p (tag)
   "Is TAG in the RELAX NG namespace?"
     (and (consp tag)
@@ -202,6 +206,13 @@ TODO: handle choice patterns as well as groups?"
 (defun rng-x--text ()
   (rng-make-text))
 
+(defun rng-x--value (attrs body)
+  (rng-make-value (cons (intern (cdr (assoc "datatypeLibrary" attrs)))
+                        (intern (cdr (assoc "type" attrs))))
+                  (car body)
+                  ;; For now, we hard code the context
+                  `(nil ,(cons "xml" rng-x-xml-namespace-url))))
+
 (defun rng-x--zero-or-more (body)
   (rng-make-zero-or-more (rng-x--body body)))
 
@@ -221,6 +232,7 @@ TODO: handle choice patterns as well as groups?"
        ((string-equal elem-name "oneOrMore") (rng-x--one-or-more body))
        ((string-equal elem-name "optional") (rng-x--optional body))
        ((string-equal elem-name "text") (rng-x--text))
+       ((string-equal elem-name "value") (rng-x--value attrs body))
        ((string-equal elem-name "zeroOrMore") (rng-x--zero-or-more body))
        )))
 

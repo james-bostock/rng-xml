@@ -2,7 +2,5 @@
 #
 # http://relaxng.org/spec-20011203.html#IDAXYYR
 element card {
-  attribute name { text },
-  attribute email { text },
   attribute type { xsd:string "html" | xsd:string "text" }
 }
