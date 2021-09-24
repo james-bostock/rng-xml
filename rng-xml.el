@@ -124,7 +124,7 @@ name element."
 has a datatypeLibrary attribute (with the value DTNS, if it does
 not already have such an attribute); and, if it is not (a data or
 value element), that it does not have a datatypeLibrary
-attribute. "
+attribute."
   (if (consp item)
       (let* ((tag (car item))
 	     (data_or_value (or (equal (cdr tag) "data")
