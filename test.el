@@ -190,6 +190,10 @@
   (should (equal (rng-c-parse-file "datatypeLibrary-02.rnc")
 		 (rng-x-parse-file "datatypeLibrary-02.rng"))))
 
+(ert-deftest rng-x-test-spec-4_4-01 ()
+  (should (equal (rng-c-parse-file "spec-4.4-01.rnc")
+		 (rng-x-parse-file "spec-4.4-01.rng"))))
+
 (ert-deftest rng-x-test-datatype-library-attr-01 ()
   (let ((expected '((:http://relaxng\.org/ns/structure/1\.0 . "element")
 		   (("name" . "point"))

@@ -74,6 +74,18 @@ whitespace."
   (not (and (stringp child)
 	    (string-match "^[[:space:]]*$" child))))
 
+(defun rng-x--unset-attr (attrs attribute)
+  "Delete ATTRIBUTE from ATTRS."
+  (assoc-delete-all attribute attrs))
+
+(defun rng-x-set-attr (attrs attribute value)
+  "Set ATTRIBUTE in ATTRS to VALUE."
+  (let* ((attrs2 (rng-x--unset-attr attrs attribute))
+	 (newattrs (cons (cons attribute value)
+			 attrs2)))
+    newattrs))
+
+
 (defun rng-x--remove-attr-whitespace (attr)
   "If ATTR is name, type or combine attribute, remove leading and
   trailing whitespace from its value."
@@ -150,12 +162,33 @@ attribute."
 	(cons tag (cons newattrs children)))
     item))
 
+(defun rng-x--value-type-attr (item)
+  "Transform ITEM so that any value element that does not have a
+type attribute has a type attribute added with the value token
+and its datatypeLibrary attribute is changed to the empty string."
+  (if (consp item)
+      (let* ((tag (car item))
+             (attrs (cadr item))
+             (newattrs (if (and (eq (cdr tag) "value")
+                                (not (assoc "type" attrs)))
+                           (rng-x--set-attr
+                            (rng-x--set-attr attrs "datatypeLibrary" "")
+                            "type" "token")
+                         attrs))
+             (children (mapcar
+		        (lambda (arg)
+			  (rng-x--value-type-attr arg))
+			(cddr item))))
+	(cons tag (cons newattrs children)))
+    item))
+
 (defun rng-x--simplify (pttrn)
   "Simplify PTTRN according to the steps described in the RELAX
   NG specification."
-  (rng-x--datatype-library-attr
-   (rng-x--remove-whitespace
-    (rng-x--remove-annotations pttrn)) ""))
+  (rng-x--value-type-attr
+   (rng-x--datatype-library-attr
+    (rng-x--remove-whitespace
+     (rng-x--remove-annotations pttrn)) "")))
 
 (defun rng-x--make-name (name)
   "Make a name pattern from NAME."
@@ -207,11 +240,19 @@ TODO: handle choice patterns as well as groups?"
   (rng-make-text))
 
 (defun rng-x--value (attrs body)
-  (rng-make-value (cons (intern (cdr (assoc "datatypeLibrary" attrs)))
-                        (intern (cdr (assoc "type" attrs))))
-                  (car body)
-                  ;; For now, we hard code the context
-                  `(nil ,(cons "xml" rng-x-xml-namespace-url))))
+  ;; This function mimics the results of the RNC parser. As we are
+  ;; dealing with the special case of processing only RELAX NG files,
+  ;; this seems acceptable.
+  (let* ((datatype-library (cdr (assoc "datatypeLibrary" attrs)))
+         (type (cdr (assoc "type" attrs)))
+         (tokenp (not (and datatype-library type)))
+         (datatype (if tokenp
+                       (cons (intern "http://relaxng.org/ns/structure/1.0")
+                             (intern "token"))
+                     (cons (intern datatype-library) (intern type))))
+         (str (car body))
+         (context (if (not tokenp) `(nil ,(cons "xml" rng-x-xml-namespace-url)))))
+    (rng-make-value datatype str context)))
 
 (defun rng-x--zero-or-more (body)
   (rng-make-zero-or-more (rng-x--body body)))
