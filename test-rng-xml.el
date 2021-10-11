@@ -1,5 +1,5 @@
 #!/bin/sh
-":"; exec emacs -batch -L . -l ert -l test.el -f ert-run-tests-batch-and-exit # -*- mode: emacs-lisp; -*-
+":"; exec emacs -batch -L . -l ert -l test-rng-xml.el -f ert-run-tests-batch-and-exit # -*- mode: emacs-lisp; -*-
 
 (require 'rng-cmpct)
 (require 'rng-xml)
