@@ -78,7 +78,7 @@ whitespace."
   "Delete ATTRIBUTE from ATTRS."
   (assoc-delete-all attribute attrs))
 
-(defun rng-x-set-attr (attrs attribute value)
+(defun rng-x--set-attr (attrs attribute value)
   "Set ATTRIBUTE in ATTRS to VALUE."
   (let* ((attrs2 (rng-x--unset-attr attrs attribute))
 	 (newattrs (cons (cons attribute value)
@@ -268,7 +268,7 @@ TODO: handle choice patterns as well as groups?"
        ((string-equal elem-name "data") (rng-x--data attrs body))
        ((string-equal elem-name "element") (rng-x--element attrs body))
        ((string-equal elem-name "empty") (rng-x--empty))
-       ((string-equal elem-name "grammar") (rng-x--grammar attrs body))
+       ((string-equal elem-name "grammar") (rng-x--grammar))
        ((string-equal elem-name "group") (rng-x--group body))
        ((string-equal elem-name "oneOrMore") (rng-x--one-or-more body))
        ((string-equal elem-name "optional") (rng-x--optional body))
