@@ -5,6 +5,16 @@
 ;; Author: James Bostock
 ;; Keywords: wp, hypermedia, languages, XML, RelaxNG
 
+;;; Commentary:
+
+;; This parses a RELAX NG schema into the form specified in
+;; rng-pttrn.el (nxml).
+;;
+;; RELAX NG schema is specified by
+;;    https://relaxng.org/spec.html
+
+;;; Code:
+
 (require 'nxml-util)
 (require 'rng-loc)
 (require 'rng-parse)
@@ -32,10 +42,10 @@
       t)))
 
 (defun rng-x--child-p (child)
-  "Is CHILD in the RELAX NG namespace. CHILD can be either a
-string or an element. If it is a string then it is in the RELAX
-NG namespace. If it is an element, it is in the RELAX NG
-namespace if its tag is in the RELAX NG namespace."
+  "Is CHILD in the RELAX NG namespace?  CHILD can be either a string
+or an element.  If it is a string then it is in the RELAX NG
+namespace.  If it is an element, it is in the RELAX NG namespace
+if its tag is in the RELAX NG namespace."
   (if (consp child)
       (rng-x--tag-p (car child))
     t))
@@ -65,11 +75,11 @@ NG (i.e. it is assumed not to be a foreign element)."
   (replace-regexp-in-string "[[:space:]]+$" "" string))
 
 (defun rng-x--trim (string)
-  "Remove leading and trailing space from STRING"
+  "Remove leading and trailing space from STRING."
   (rng-x--ltrim (rng-x--rtrim string)))
 
 (defun rng-x--child-whitespace-filter (child)
-  "Returns true if CHILD is a not string consisting entirely of
+  "Return non-nil if CHILD is a not string consisting entirely of
 whitespace."
   (not (and (stringp child)
 	    (string-match "^[[:space:]]*$" child))))
@@ -184,7 +194,7 @@ and its datatypeLibrary attribute is changed to the empty string."
 
 (defun rng-x--simplify (pttrn)
   "Simplify PTTRN according to the steps described in the RELAX
-  NG specification."
+NG specification."
   (rng-x--value-type-attr
    (rng-x--datatype-library-attr
     (rng-x--remove-whitespace
@@ -282,3 +292,4 @@ TODO: handle choice patterns as well as groups?"
     (rng-x--main (rng-x--simplify parsed-file))))
 
 (provide 'rng-xml)
+;;; rng-xml.el ends here
