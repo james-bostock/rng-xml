@@ -3,6 +3,7 @@
 
 (require 'rng-cmpct)
 (require 'rng-xml)
+(require 'ert)
 
 (ert-deftest rng-x-test-tut-01-01 ()
   :expected-result :passed
